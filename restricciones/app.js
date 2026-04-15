@@ -19,8 +19,33 @@ la idea es que en laravel si se puede traer datos o agrupar con ? */
 
 
 
-//Parametro estrictos
+//restricciones
+//usuario  (toca hacer condicion para poder hacer restriccion en Node)
 
+app.param('id', (req, res, next, id) => {
+    if (/^\d+$/.test(id)) {
+        next();
+    } else {
+        res.status(400).send('Error: El ID debe ser numérico');
+    }
+});
+
+app.get('/user/:id', (req, res) => {
+    res.send(`ID de usuario validado: ${req.params.id}`);
+});
+
+//Mapamundi
+app.param('municipio', (req, res, next, municipio) => {
+    if (/^[a-zA-Z]+$/.test(municipio)) {
+        next();
+    } else {
+        res.status(400).send('Error: El Municipio solo debe contener letras')
+    }
+});
+
+app.get('/tierra/:pais/:municipio', (req, res) => {
+    res.send(`El Municipio indicado es: ${req.params.municipio}`);
+});
 
 
 
