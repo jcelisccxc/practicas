@@ -108,6 +108,21 @@ app.use('/clases', clasesRouter);
 
 
 
+//SISTEMA USUARIOS
+const usuariosRouter = express.Router();
+
+usuariosRouter.get('/misusuarios', (req, res) => {
+    res.send('<h1>Uusarios que usan el sistema</h1> <p>SuperAdmin...</> <br> <p>Administrador...</> <p>Cliente...</> <p>Proveedor...</>');
+});
+
+usuariosRouter.get('/SuperAdmin/:id(1), /Administrador/:id(2), /Cliente/:id, /Proveedor/:id',  (req, res) => {
+    const {id} = req.params;
+    if (!/^\d+$/.test(id)) return res.status(400).send("ID invalido");
+    res.send(`Estas en el panel de: ${id}`);
+});
+
+app.use('/usuarios', usuariosRouter);
+
 //PUERTO
 const PORT = 3000
 app.listen(PORT, () => {
